@@ -1,0 +1,60 @@
+error() {
+    (>&2 echo $@)
+}
+
+ssource() {
+    local x
+    for x in $@; do
+        if [ -r  $x ]; then
+            . "$x"
+        else
+            error "File not readable: $x"
+        fi
+    done
+}
+
+sfile() {
+    if [ -n "$DOTFILES_DIR" -a -n "$SHELL_NAME" -a -f "$DOTFILES_DIR/shells/$SHELL_NAME/$1" ]; then
+        echo $DOTFILES_DIR/shells/$SHELL_NAME/$1
+    else
+        error "File not found: $DOTFILES_DIR/shells/$SHELL_NAME/$1"
+    fi
+}
+
+# Required code duplication to avoid recursive calls
+__shellfile() {
+    if [ -n "$DOTFILES_DIR" -a -f "$DOTFILES_DIR/shells/shell/$1" ]; then
+        echo $DOTFILES_DIR/shells/shell/$1
+    else
+        error "File not found: $DOTFILES_DIR/shells/shell/$1"
+    fi
+}
+
+ssfile() {
+    ssource "$(sfile $1)"
+}
+
+shsfile() {
+    ssource "$(__shellfile $1)"
+}
+
+source_home_file() {
+    if [ -f "$HOME/$1" ] ; then
+        ssource "$HOME/$1"
+    fi
+}
+
+shellName() {
+    basename $(ps -o command -p "$$" --no-headers | cut -f1 -d ' ')
+}
+
+__scriptName() {
+    case "$(shellName)" in
+        bash) echo '${BASH_SOURCE[0]}' ;;
+        zsh) echo '$0' ;;
+        sh) echo '$0' ;;
+        dash) echo '$0' ;;
+    esac
+}
+
+alias scriptPath="eval readlink -f $(__scriptName)"

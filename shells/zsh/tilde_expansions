@@ -1,0 +1,19 @@
+# If you (in zsh) define a variable with an absolute path
+# then it can be accesed like ~dir
+#
+## $> pwd
+##    /root
+## $> asd=/tmp/asd # or builtin hash -d asd=/tmp/asd
+## $> cd ~asd
+## $> pwd
+##    /tmp/asd
+#
+
+__tilde_expansion() {
+    builtin hash -d "$1=$2"
+}
+
+__tilde_expansion down "`xdg-user-dir DOWNLOAD`/"
+__tilde_expansion docs "`xdg-user-dir DOCUMENTS`/"
+__tilde_expansion desk "`xdg-user-dir DESKTOP`/"
+__tilde_expansion dotfiles "$DOTFILES_DIR"

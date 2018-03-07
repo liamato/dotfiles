@@ -1,0 +1,104 @@
+alias aliases='echo "------------Your aliases------------"; alias | sort'
+
+alias q="exit"
+
+alias ls="ls --color=auto -h -b -B -F"
+alias l="ls -l"
+alias la="ls -A --color=auto -h -b -F -l"
+
+alias ñs="ls"
+alias ñ="l"
+alias sl="ls"
+alias sñ="ls"
+alias pdw="pwd"
+alias vi="vim"
+alias vmi="vim"
+alias sublime="subl"
+alias tree="tree -a -L 3 -I \".git|.hg|.svn\""
+alias gti="git"
+
+# alias -="cd -" # Bad option -=
+alias cd..="cd .."
+alias cd.="cd .."
+alias dc="cd"
+
+alias openoffice="libreoffice"
+
+alias dir='dir --color=auto'
+alias vdir='vdir --color=auto'
+alias grep="grep --color=auto"
+alias egrep="egrep --color=auto"
+alias fgrep="fgrep --color=auto"
+
+alias mv="mv -i"
+alias cp="cp -i"
+alias ln="ln -i"
+
+alias chown="chown --preserve-root"
+alias chmod="chmod --preserve-root"
+alias chgrp="chgrp --preserve-root"
+
+alias df="df -H"
+alias du="du -ch"
+
+alias lspci="lspci -nn"
+
+# sudo Shortcuts
+if [ ! "$UID" = "0" ]; then
+    alias reboot="sudo reboot"
+    alias shutdown="sudo shutdown"
+    alias apt-get="sudo apt-get"
+    alias aptitude="sudo aptitude"
+    alias dpkg="sudo dpkg"
+    alias gparted="sudo gparted"
+    alias parted="sudo parted"
+    alias gdisk="sudo gdisk"
+    alias fdisk="sudo fdisk"
+fi
+
+mcd() { mkdir -p "$@" && eval cd "\"\$$#\""; }
+
+gopen() {
+    echo "$(readlink -f $1)"
+    if [ ! "$UID" = "0" -a -x "$(command -v xdg-open)" ]; then
+        return $(xdg-open $1)
+    fi
+
+    if [ -x "$(command -v gnome-open)" ]; then
+        return $(gnome-open $1)
+    fi
+
+    if [ -x "$(command -v gvfs-open)" ]; then
+        return $(gvfs-open $1)
+    fi
+
+    (>&2 echo "No default open file handler");
+    return 1
+}
+
+chroot() {
+    if [ "x$1" = "x" ]; then
+        (>&2 echo -e "Error: No route passed\n\nUsage:\n\t$0 ROUTE");
+        return 1
+    fi
+
+    if [ ! -r $1 ]; then
+        (>&2 echo "File not readable");
+        return 2
+    fi
+
+    sudo mount -o bind /proc $1/proc
+    sudo mount -o bind /sys $1/sys
+    sudo mount -o bind /dev $1/dev
+    sudo mount -o bind /run $1/run
+
+    sudo chroot $1 ${SHELL} -c "echo -e \"New root: $1\nMaybe you need to enable dhcp again (ex. dhclient eth0 / dhcpcd)\"; ${SHELL} -i"
+
+    ## WARNING:
+    ## If enabled it will unmount both
+    ## mount paths (original and binded one)
+    #sudo umount $1/proc
+    #sudo umount $1/sys
+    #sudo umount $1/dev
+    #sudo umount $1/run
+}

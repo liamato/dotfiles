@@ -1,0 +1,28 @@
+"*":
+  core:
+    closeDeletedFileTabs: true
+    disabledPackages: [
+      "whitespace"
+    ]
+    telemetryConsent: "no"
+    themes: [
+      "one-light-ui"
+      "one-light-syntax"
+    ]
+  editor:
+    fontFamily: "iosevka"
+    fontSize: 16
+    scrollPastEnd: true
+    tabLength: 4
+  "exception-reporting":
+    userId: "8b6c2e87-fedc-4228-be6a-31f9efde4727"
+  minimap:
+    plugins:
+      cursorline: true
+      cursorlineDecorationsZIndex: 0
+  "tree-view":
+    hideVcsIgnoredFiles: true
+  welcome:
+    showOnStartup: false
+  zentabs:
+    neverCloseUnsaved: true

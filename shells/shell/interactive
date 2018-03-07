@@ -1,0 +1,7 @@
+shsfile "alias"
+
+source_home_file .alias
+source_home_file .alias.$SHELL_NAME
+
+source_home_file .interactive
+source_home_file .interactive.$SHELL_NAME

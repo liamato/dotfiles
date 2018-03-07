@@ -1,0 +1,36 @@
+# EditorConfig is awesome: http://EditorConfig.org
+root = true
+
+###
+# Value "unset" causes the use of editor default
+###
+
+[*]
+# Unix-style newline
+end_of_line = lf
+insert_final_newline = true
+# Forces hard line wrapping (positive int/off)
+# Suported by: Vim, Atom, ReSharper and Rider
+max_line_length=off
+
+
+[*.{js,py}]
+charset = utf-8
+
+[*.py]
+indent_style = space
+indent_size = 4
+
+[Makefile]
+indent_style = tab
+# Tabstop size (positive int; default = indent_size )
+tab_width=4
+
+[lib/**.js]
+indent_style = space
+indent_size = 2
+trim_trailing_whitespace=true
+
+[{package.json,.travis.yml}]
+indent_style = space
+indent_size = 2

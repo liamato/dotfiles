@@ -1,0 +1,22 @@
+# INFO: this will source the default env
+. ../shells/shell/env
+
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+HISTSIZE=1000
+HISTFILESIZE=2000
+BASH_CACHE="${HOME}/.cache/bash"
+
+if [ ! -d "${BASH_CACHE}" ]; then
+    mkdir -p "${BASH_CACHE}"
+fi
+
+# don't put duplicate lines or lines starting with space in the history.
+# See bash(1) for more options
+HISTCONTROL=ignoreboth
+
+HISTFILE="${BASH_CACHE}/.bash_history"
+
+# set variable identifying the chroot you work in (used in the prompt below)
+if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
+    debian_chroot=$(cat /etc/debian_chroot)
+fi

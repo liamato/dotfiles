@@ -1,0 +1,54 @@
+# INFO: this sources the default functions
+pushd . > /dev/null
+cd ../shells/shell
+. ./functions
+popd > /dev/null
+
+export SHELL="$(ps -o command -p "$$" --no-headers | cut -f1 -d ' ')"
+export SHELL_NAME="$(shellName)"
+export DOTFILES_DIR="$(dirname $(dirname $(scriptPath)))"
+if [ "sh" != "$SHELL_NAME" ] ; then
+    export DOTFILES_DIR="$(dirname $DOTFILES_DIR)"
+fi
+
+# Adds the personal bin directory
+if [ -d "$HOME/bin" ] ; then
+    PATH="$HOME/bin:$PATH"
+fi
+
+# Adds the personal .bin directory
+if [ -d "$HOME/.bin" ] ; then
+    PATH="$HOME/.bin:$PATH"
+fi
+
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
+export PATH="$PATH"
+export PAGER="less"
+export MANPATH="/usr/local/man:$MANPATH"
+#umask 022
+
+# Define the base directory for cd
+# Shouldn't be export'ed to avoid scripting errors
+## https://linux.101hacks.com/cd-command/cdpath/
+CDPATH=".:/:$HOME:/etc:/var:/opt"
+
+# colored GCC warnings and errors
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+fi
+
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+export LANG=es_ES.UTF-8
+
+source_home_file .env
+source_home_file .env.$SHELL_NAME
