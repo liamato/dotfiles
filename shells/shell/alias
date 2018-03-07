@@ -2,9 +2,9 @@ alias aliases='echo "------------Your aliases------------"; alias | sort'
 
 alias q="exit"
 
-alias ls="ls --color=auto -h -b -B -F"
+alias ls="/bin/ls --color=always -h -b -B -F"
 alias l="ls -l"
-alias la="ls -A --color=auto -h -b -F -l"
+alias la="ls -A --color=always -h -b -F -l"
 
 alias ñs="ls"
 alias ñ="l"

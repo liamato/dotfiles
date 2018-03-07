@@ -60,3 +60,5 @@ fi
 
 # loads oh-my-zsh framework
 ssource "$ZSH/oh-my-zsh.sh"
+
+shsfile "alias"
