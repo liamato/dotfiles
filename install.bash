@@ -158,8 +158,11 @@ fi
 git clone --progress $REPO $INSTALL_DIR
 
 if $OMZ then
-    mkdir -p $INSTALL_DIR/OMZ
-    git clone --progress $OMZ_REPO $INSTALL_DIR/OMZ
+    git submodule add  $OMZ_REPO $INSTALL_DIR/OMZ
+    pushd $INSTALL_DIR/OMZ > /dev/null
+    git checkout master
+    git pull
+    popd > /dev/null
 fi
 
 _link_folder_contents_recursive $INSTALL_DIR/dotfiles/ $HOME
