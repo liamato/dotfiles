@@ -1,0 +1,11 @@
+#!/bin/bash
+
+readonly TMP=$(mktemp -d)
+
+
+pushd $TMP > /dev/null &&\
+git clone https://github.com/xenlism/wildfire.git -q &&\
+$TMP/wildfire/INSTALL/offline.install &&\
+popd > /dev/null
+
+rm -rf $TMP

@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# $1 = $INSTALL_DIR
+
+readonly TMP=$(mktemp -d)
+
+pushd $TMP > /dev/null &&\
+unzip -qq $1/third-party/Iosevka.zip &&\
+mkdir -p $HOME/.fonts &&\
+cp Iosevka/*.ttf $HOME/.fonts -f &&\
+fc-cache &&\
+popd > /dev/null
+
+rm -rf $TMP

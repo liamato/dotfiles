@@ -1,0 +1,11 @@
+#!/bin/bash
+
+readonly TMP=$(mktemp -d)
+
+pushd $TMP > /dev/null &&\
+git clone https://github.com/daniruiz/flat-remix -q &&\
+mkdir -p ~/.icons &&\
+cp -r flat-remix/Flat-Remix* ~/.icons/ -f &&\
+popd > /dev/null
+
+rm -rf $TMP
