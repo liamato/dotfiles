@@ -48,6 +48,7 @@ if [ ! "$UID" = "0" ]; then
     alias reboot="sudo reboot"
     alias shutdown="sudo shutdown"
     alias apt-get="sudo apt-get"
+    alias apt="sudo apt"
     alias aptitude="sudo aptitude"
     alias dpkg="sudo dpkg"
     alias gparted="sudo gparted"

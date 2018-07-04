@@ -55,7 +55,23 @@ COMPLETION_WAITING_DOTS=${COMPLETION_WAITING_DOTS:="true"}
 # Add wisely, as too many plugins slow down shell startup.
 #plugins=${plugins:=(catimg command-not-found Composer encode64 git gitfast git-extras jsontools node npm sublime sudo urltools web-search systemd tmux)}
 if [ -z "$plugins" ] ; then
-    plugins=(catimg command-not-found Composer encode64  git-extras jsontools node npm sublime sudo urltools web-search systemd tmux)
+    plugins=(catimg command-not-found Composer encode64  git-extras jsontools sublime sudo urltools web-search systemd)
+
+    type -fp tmux 2>&1 > /dev/null
+    if [ $? -eq 0 ]; then
+        plugins=($plugins tmux)
+    fi
+
+    type -fp nodejs 2>&1 > /dev/null
+    if [ $? -eq 0 ]; then
+        plugins=($plugins node)
+    fi
+
+    type -fp npm 2>&1 > /dev/null
+    if [ $? -eq 0 ]; then
+        plugins=($plugins npm)
+    fi
+
     fpath=($DOTFILES_DIR/shells/zsh/git.plugin.custom $fpath)
 fi
 
