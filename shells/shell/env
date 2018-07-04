@@ -7,9 +7,9 @@ popd > /dev/null
 export SHELL="$(ps -o command -p "$$" --no-headers | cut -f1 -d ' ')"
 export SHELL_NAME="$(shellName)"
 export DOTFILES_DIR="$(dirname $(dirname $(scriptPath)))"
-if [ "sh" != "$SHELL_NAME" ] ; then
-    export DOTFILES_DIR="$(dirname $DOTFILES_DIR)"
-fi
+# if [ "sh" = "$SHELL_NAME" ] ; then
+#     export DOTFILES_DIR="$(dirname $DOTFILES_DIR)"
+# fi
 
 # Adds the personal bin directory
 if [ -d "$HOME/bin" ] ; then
