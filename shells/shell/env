@@ -4,7 +4,7 @@ cd ../shells/shell
 . ./functions
 popd > /dev/null
 
-export SHELL="$(ps -o command -p "$$" --no-headers | cut -f1 -d ' ')"
+export SHELL="$(ps -p "$$" --no-headers | sed 's/\s\+/ /g' | cut -f3 -d ':' | cut -f2 -d ' ')"
 export SHELL_NAME="$(shellName)"
 export DOTFILES_DIR="$(dirname $(dirname $(scriptPath)))"
 # if [ "sh" = "$SHELL_NAME" ] ; then

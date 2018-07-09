@@ -53,7 +53,7 @@ source_home_file() {
 
 # Prints the shell name
 shellName() {
-    basename $(ps -o command -p "$$" --no-headers | cut -f1 -d ' ')
+    basename $(ps -p "$$" --no-headers | sed 's/\s\+/ /g' | cut -f3 -d ':' | cut -f2 -d ' ')
 }
 
 # Prints the script path (no absolute path)
