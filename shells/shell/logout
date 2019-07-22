@@ -2,3 +2,10 @@ ssfile "logout"
 
 source_home_file .logout
 source_home_file .logout.$SHELL_NAME
+
+# when leaving the console clear the screen to increase privacy
+
+if [ "$SHLVL" = 1 ]; then
+    [ -x /usr/bin/clear_console ] && /usr/bin/clear_console -q
+fi
+
