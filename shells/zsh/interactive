@@ -1,5 +1,5 @@
 # INFO: this will source the default interactive
-shsfile "interactive"
+#shsfile "interactive"
 
 ssfile "tilde_expansions"
 

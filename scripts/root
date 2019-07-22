@@ -1,0 +1,39 @@
+#!/bin/sh
+
+if [ "x$1" = "x" ]; then
+    (>&2 printf "Error: No route passed\n\nUsage:\n\t%s ROUTE" "$0");
+    return 1
+fi
+
+if [ ! -d "$1" ]; then
+    (>&2 echo "The path isn't a directory");
+    return 2
+fi
+
+if [ ! -r "$1" ]; then
+    (>&2 echo "Path not readable");
+    return 3
+fi
+
+sudo mount -t proc proc "$1"/proc
+# sudo mount -o bind /proc "$1"/proc
+sudo mount -t sysfs sys "$1"/sys
+# sudo mount -o bind /sys "$1"/sys
+sudo mount -o bind /dev "$1"/dev
+sudo mount -t devpts /pts "$1"/dev/pts
+# sudo mount -o bind /run "$1"/run
+
+cp -L /etc/resolv.conf "$1"/etc/resolv.conf
+
+sudo chroot "$1" "${SHELL}" -c "printf \"New root: %s\nMaybe you need to enable dhcp again (ex. dhclient eth0 / dhcpcd)\" \"$1\"; ${SHELL} -i"
+
+
+# ------------- Test needed -------------
+## WARNING:
+## If enabled it might unmount both
+## mount paths (original and binded one)
+sudo umoun "$1"/proc
+sudo umount "$1"/sys
+sudo umount "$1"/dev
+sudo umount "$1"/run
+# ------------- Test needed -------------

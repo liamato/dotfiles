@@ -1,5 +1,5 @@
 # INFO: this will source the default interactive
-shsfile "interactive"
+#shsfile "interactive"
 
 
 shopt -s autocd
@@ -39,6 +39,8 @@ shopt -s no_empty_cmd_completion
 # notify when jobs running in background terminate
 set -o notify
 
+
+HISTIGNORE="&:ls:cd:[bf]g:exit:pwd:clear:mount:umount:[ \t]*"
 
 
 # set a fancy prompt (non-color, unless we know we "want" color)

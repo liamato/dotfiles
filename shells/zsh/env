@@ -1,5 +1,5 @@
 # INFO: this will source the default env
-. ../shells/shell/env
+#. ../shells/shell/env
 
 ZSH_CACHE="${HOME}/.cache/zsh"
 

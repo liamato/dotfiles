@@ -1,15 +1,25 @@
 # INFO: this sources the default functions
-pushd . > /dev/null
-cd ../shells/shell
-. ./functions
-popd > /dev/null
+. $DOTFILES_DIR/shells/shell/functions
+#pushd . > /dev/null
+#cd ../shells/shell
+#. ./functions
+#popd > /dev/null
 
-export SHELL="$(ps -p "$$" --no-headers | sed 's/\s\+/ /g' | cut -f3 -d ':' | cut -f2 -d ' ')"
-export SHELL_NAME="$(shellName)"
-export DOTFILES_DIR="$(dirname $(dirname $(scriptPath)))"
+#export SHELL="$(ps -p "$$" --no-headers -o comm)"
+if [ -z "$SHELL_NAME" ]; then
+	#export SHELL_NAME="$(basename $SHELL)"
+	export SHELL_NAME="$(ps -p "$$" --no-headers -o comm)"
+fi
+#export DOTFILES_DIR="$(dirname $(dirname $(scriptPath)))"
 # if [ "sh" = "$SHELL_NAME" ] ; then
 #     export DOTFILES_DIR="$(dirname $DOTFILES_DIR)"
 # fi
+
+ssfile "env"
+
+# Adds the scripts folder
+PATH="$PATH:$DOTFILES_DIR/scripts"
+
 
 # Adds the personal bin directory
 if [ -d "$HOME/bin" ] ; then

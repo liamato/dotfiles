@@ -1,0 +1,11 @@
+#!/bin/bash
+readonly OMZ_REPO="https://github.com/robbyrussell/oh-my-zsh.git"
+readonly DOTFILES_DIR="$1"
+
+pushd $DOTFILES_DIR > /dev/null
+git submodule add -f --name "OMZ" $OMZ_REPO OMZ
+pushd $DOTFILES_DIR/OMZ > /dev/null
+git checkout master
+git pull
+popd > /dev/null
+popd > /dev/null

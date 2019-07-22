@@ -1,4 +1,4 @@
 
 if [ -n "$DOTFILES_DIR" ]; then
-    ssfile "logout"
+    shsfile "login"
 fi

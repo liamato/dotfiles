@@ -1,2 +1,4 @@
+ssfile "login"
+
 source_home_file .login
 source_home_file .login.$SHELL_NAME

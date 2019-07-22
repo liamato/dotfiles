@@ -1,0 +1,5 @@
+#!/bin/sh
+
+awk '/^[^#]/' /etc/shells | while read -r path; do
+    basename "$path"
+done

@@ -1,0 +1,14 @@
+#!/bin/sh
+
+if [ "$#" = "0" ];  then
+	echo "Directory required" >&2
+	return 1
+fi
+
+mkdir -p "$*"
+res=$?
+if [ $res -ne 0 ]; then
+	return $res
+fi
+
+cd "$*" || return 1

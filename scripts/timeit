@@ -1,0 +1,27 @@
+#!/bin/sh
+
+# timeit
+# Check prints the average time(in seconds) of execution of the passed command.
+# If the first argument is numeric, is used as the number of iterations,
+# if not will do 5 iterations.
+
+number=5
+
+# If the first argument is a number use it as the range number
+case $1 in
+    ''|*[!0-9]*) ;;
+    *) number="$1"; shift ;;
+esac
+
+
+secs=0
+file="$(mktemp)"
+time_cmd=$(which time)
+
+for _ in $(seq "$number"); do
+	$time_cmd -o "$file" -p "$@" > /dev/null
+	t="$(awk '{ gsub(",",".",$2); sum +=$2} END { print sum}' < "$file")"
+	secs="$(echo "$secs + $t" | bc -l)"
+done
+
+printf "%.4fs\n" "$(echo "$secs / $number.0" | bc -l | tr ',' '.')"

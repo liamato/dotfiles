@@ -1,3 +1,5 @@
+ssfile "interactive"
+
 source_home_file .interactive
 source_home_file .interactive.$SHELL_NAME
 

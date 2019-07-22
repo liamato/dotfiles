@@ -1,0 +1,36 @@
+#!/bin/sh
+
+__configs() {
+    for config in "$DOTFILES_DIR"/dotfiles/*; do
+        basename "$config"
+    done
+}
+
+
+## Missing -h/--help option
+
+
+# No arguments, show posible configurations
+if [ $# -eq 0 ]; then
+    __configs
+    return 0
+fi
+
+
+option="$(echo "$1" |tr '[:upper:]' '[:lower:]')"
+
+case "$option" in
+	"add" | "a") option="-S"; shift;;
+	"remove" | "r") option="-D"; shift;;
+	*) option="-S";;
+esac
+
+for arg; do
+    if [ -d "$arg" ]; then
+        echo "ERROR: Configuration $arg not available"
+	return 1
+    fi
+done
+
+stow -d "$DOTFILES_DIR/dotfiles" -t "$HOME" $option "$@"
+

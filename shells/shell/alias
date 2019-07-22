@@ -22,6 +22,7 @@ alias cd..="cd .."
 alias cd.="cd .."
 alias dc="cd"
 
+
 alias openoffice="libreoffice"
 
 alias dir='dir --color=auto'
@@ -43,6 +44,10 @@ alias du="du -ch"
 
 alias lspci="lspci -nn"
 
+
+alias upd="sudo apt update && apt list --upgradable"
+alias upg="sudo apt upgrade"
+
 # sudo Shortcuts
 if [ ! "$UID" = "0" ]; then
     alias reboot="sudo reboot"
@@ -51,55 +56,80 @@ if [ ! "$UID" = "0" ]; then
     alias apt="sudo apt"
     alias aptitude="sudo aptitude"
     alias dpkg="sudo dpkg"
+    alias snap="sudo snap"
     alias gparted="sudo gparted"
     alias parted="sudo parted"
     alias gdisk="sudo gdisk"
     alias fdisk="sudo fdisk"
 fi
 
-mcd() { mkdir -p "$@" && eval cd "\"\$$#\""; }
 
-gopen() {
-    echo "$(readlink -f $1)"
-    if [ ! "$UID" = "0" -a -x "$(command -v xdg-open)" ]; then
-        return $(xdg-open $1)
-    fi
 
-    if [ -x "$(command -v gnome-open)" ]; then
-        return $(gnome-open $1)
-    fi
+## Scripts aliases ##
+alias mkcd=". mkcd"
+alias mcd=". mkcd"
 
-    if [ -x "$(command -v gvfs-open)" ]; then
-        return $(gvfs-open $1)
-    fi
+#mcd() { mkdir -p "$@" && eval cd "\"\$$#\""; }
 
-    (>&2 echo "No default open file handler");
-    return 1
-}
+# nmcli
+#alias ipa="ip a | awk '{ if (NR==1) {print \$2} else {if (\$0 ~ /^[0-9]+/)  {print \"\n\" \$2} else {if (/inet\s([0-9\.\/]+)/) print \$2 } }}'"
+#alias ips="ip a | awk '/inet\s([0-9\.\/]+)/ { if (!(\$2 ~ /^127/)) print \$2 }'"
+#alias idev="ip a | awk '/:\s([^:]*):/ { print substr(\$2, 1, length(\$2)-1) }'"
+alias ifconf="ipa"
+alias ipconf="ipa"
 
-chroot() {
-    if [ "x$1" = "x" ]; then
-        (>&2 echo -e "Error: No route passed\n\nUsage:\n\t$0 ROUTE");
-        return 1
-    fi
+# gopen() {
+#     echo "$(readlink -f $1)"
+#     if [ ! "$UID" = "0" -a -x "$(command -v xdg-open)" ]; then
+#         return $(xdg-open $1)
+#     fi
 
-    if [ ! -r $1 ]; then
-        (>&2 echo "File not readable");
-        return 2
-    fi
+#     if [ -x "$(command -v gnome-open)" ]; then
+#         return $(gnome-open $1)
+#     fi
 
-    sudo mount -o bind /proc $1/proc
-    sudo mount -o bind /sys $1/sys
-    sudo mount -o bind /dev $1/dev
-    sudo mount -o bind /run $1/run
+#     if [ -x "$(command -v gvfs-open)" ]; then
+#         return $(gvfs-open $1)
+#     fi
+#     [ -t 1 ];
+#     colors="$?"
+#     (>&2 echo "$([ 1 -eq $colors ] && tput setaf 1)No default open file handler$([ 1 -eq $colors ] && tput sgr0)");
+#     return 1
+# }
 
-    sudo chroot $1 ${SHELL} -c "echo -e \"New root: $1\nMaybe you need to enable dhcp again (ex. dhclient eth0 / dhcpcd)\"; ${SHELL} -i"
+alias o="gopen"
 
-    ## WARNING:
-    ## If enabled it will unmount both
-    ## mount paths (original and binded one)
-    #sudo umount $1/proc
-    #sudo umount $1/sys
-    #sudo umount $1/dev
-    #sudo umount $1/run
-}
+# chroot() {
+# if [ "x$1" = "x" ]; then
+#     (>&2 echo -e "Error: No route passed\n\nUsage:\n\t$0 ROUTE");
+#     return 1
+# fi
+
+# if [ ! -r $1 ]; then
+#     (>&2 echo "File not readable");
+#     return 2
+# fi
+
+# sudo mount -t proc proc $1/proc
+# # sudo mount -o bind /proc $1/proc
+# sudo mount -t sysfs sys $1/sys
+# # sudo mount -o bind /sys $1/sys
+# sudo mount -o bind /dev $1/dev
+# sudo mount -t devpts /pts $1/dev/pts
+# # sudo mount -o bind /run $1/run
+
+# cp -L /etc/resolv.conf $1/etc/resolv.conf
+
+# sudo chroot $1 ${SHELL} -c "echo -e \"New root: $1\nMaybe you need to enable dhcp again (ex. dhclient eth0 / dhcpcd)\"; ${SHELL} -i"
+
+
+# # ------------- Test needed -------------
+# ## WARNING:
+# ## If enabled it might unmount both
+# ## mount paths (original and binded one)
+# sudo umoun $1/proc
+# sudo umount $1/sys
+# sudo umount $1/dev
+# sudo umount $1/run
+# # ------------- Test needed -------------
+# }

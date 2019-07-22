@@ -1,0 +1,30 @@
+#!/bin/sh
+
+if [ "$#" = "0" ]; then
+    echo "PATH parameter required"
+    return 1
+fi
+
+readlink -f "$1"
+
+UID="$(id | cut -f1 -d'(' | cut -f2 -d=)"
+
+if [ "$UID" != "0" ] && [ -x "$(command -v xdg-open)" ]; then
+   xdg-open "$1"
+   return $?
+fi
+
+if [ -x "$(command -v gnome-open)" ]; then
+    gnome-open "$1"
+    return $?
+fi
+
+if [ -x "$(command -v gvfs-open)" ]; then
+    gvfs-open "$1"
+    return $?
+fi
+
+[ -t 1 ];
+colors="$?"
+echo "$([ 1 -eq $colors ] && tput setaf 1)No default open file handler$([ 1 -eq $colors ] && tput sgr0)" >&2
+return 1
