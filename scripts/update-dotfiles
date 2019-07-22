@@ -18,4 +18,5 @@ cd "$prev" || exit 1
 
 unset prev
 
-update-env
+echo "Is posible that you need to run 'update-env' to set the enviroment variables"
+
