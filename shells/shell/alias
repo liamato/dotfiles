@@ -66,6 +66,7 @@ fi
 
 
 ## Scripts aliases ##
+alias update-env=". ~/.dotfilesrc"
 alias mkcd=". mkcd"
 alias mcd=". mkcd"
 
