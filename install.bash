@@ -186,7 +186,7 @@ if [ $? -ne 0 ]; then
 fi
 
 # Checks the availability of stow
-type -fP stow --no > /dev/null 2>&1
+type -fP stow > /dev/null 2>&1
 if [ $? -ne 0 ]; then
     _error -e "\033[1;31;1mError:\033[0m\033[31m Stow isn't on the \033[3m\$PATH\033[0m"
     exit 1
@@ -195,7 +195,7 @@ fi
 
 echo -e "\nInstalling .dotfiles ..."
 git clone --progress $REPO "$INSTALL_DIR"
-printf "export DOTFILES_DIR=\"%s\"\n. $DOTFILES_DIR/shells/shell/env" "$INSTALL_DIR" > "$DOTFILESRC_FILE"
+printf "export DOTFILES_DIR=\"%s\"\n. \$DOTFILES_DIR/shells/shell/env" "$INSTALL_DIR" > "$DOTFILESRC_FILE"
 . "$DOTFILESRC_FILE"
 
 
@@ -207,7 +207,7 @@ fi
 
 echo -e "\nLinking config files"
 shells | while read -r line; do
-    configure-dotfiles add "$line" > /dev/null 2>&1
+    configure-dotfiles add "$line" > /dev/null
 done
 
 
@@ -240,7 +240,7 @@ fi
 type -fP xdg-user-dir > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -e "\nInstalling template-files"
-    cp -r --backup=numbered "$INSTALL_DIR/file-templates/*" "$(xdg-user-dir TEMPLATES)"
+    cp -r --backup=numbered "$INSTALL_DIR"/file-templates/* "$(xdg-user-dir TEMPLATES)"
     # _copy_folder_contents_recursive $INSTALL_DIR/file-templates/ $(xdg-user-dir TEMPLATES)
 fi
 
