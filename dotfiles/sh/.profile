@@ -18,6 +18,7 @@
 
 # if running bash
 if [ -z "$BASH_VERSION" ]; then
+    export SHELL_NAME="sh"
     shsfile "login"
     export ENV="$(__shellfile interactive)"
 else

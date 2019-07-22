@@ -35,6 +35,8 @@ alias mv="mv -i"
 alias cp="cp -i"
 alias ln="ln -i"
 
+alias sh="sh -l"
+
 alias chown="chown --preserve-root"
 alias chmod="chmod --preserve-root"
 alias chgrp="chgrp --preserve-root"
