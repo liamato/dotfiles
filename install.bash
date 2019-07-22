@@ -60,7 +60,7 @@ _install() {
 #         while [ $x -gt 1 ]; do
 #             mv $1.backup.$[$x-1] $1.backup.$x
 #             x=$[$x-1]
-#             error "$x"
+#             _error "$x"
 #         done
 #         mv $1.backup $1.backup.$x
 #     fi
@@ -181,14 +181,14 @@ unset ARG
 # Checks the availability of git
 type -fP git > /dev/null 2>&1
 if [ $? -ne 0 ]; then
-    error -e "\033[1;31;1mError:\033[0m\033[31m Git isn't on the \033[3m\$PATH\033[0m"
+    _error -e "\033[1;31;1mError:\033[0m\033[31m Git isn't on the \033[3m\$PATH\033[0m"
     exit 1
 fi
 
 # Checks the availability of stow
 type -fP stow --no > /dev/null 2>&1
 if [ $? -ne 0 ]; then
-    error -e "\033[1;31;1mError:\033[0m\033[31m Stow isn't on the \033[3m\$PATH\033[0m"
+    _error -e "\033[1;31;1mError:\033[0m\033[31m Stow isn't on the \033[3m\$PATH\033[0m"
     exit 1
 fi
 
