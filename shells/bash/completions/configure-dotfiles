@@ -1,0 +1,14 @@
+#!/bin/bash
+
+__configure-dotfiles_completion() {
+	if [ "${#COMP_WORDS[@]}" -lt 3 ]; then
+		COMPREPLY+=($(compgen -W "add remove" "${COMP_WORDS[$COMP_CWORD]}"))
+		if [ -z "$2" ]; then
+			return 0
+		fi
+	fi
+
+	COMPREPLY+=($(compgen -W "$(configure-dotfiles| tr $'\n' ' ')" "${COMP_WORDS[$COMP_CWORD]}"))
+}
+
+complete -F __configure-dotfiles_completion configure-dotfiles
