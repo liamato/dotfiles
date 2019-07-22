@@ -139,7 +139,8 @@ _install() {
 # }
 
 _help_message() {
-    echo -e "Usage:\n\033[1m$0 [options]\033[0m\n    \033[1m-h, --help\033[0m\n\t\tThis help message\n    \033[1m-d=\033[0m\033[4mDIR\033[0m\033[1m, --install-dir=\033[0m\033[4mDIR\033[0m\n\t\tInstalls the dotfiles to \033[0m\033[4mDIR\033[0m\n    \033[1m-r, --replace\033[0m\n\t\tDoesn't ask before replacing files\033[0m\n    \033[1m--no-omz\033[0m\n\t\tDoesn't install oh-my-zsh\033[0m\n    \033[1m--no-atom\033[0m\n\t\tDoesn't install the atom customitzation\033[0m\n    \033[1m--no-fonts\033[0m\n\t\tDoesn't install the fonts\033[0m\n    \033[1m--no-themes\033[0m\n\t\tDoesn't install the themes\033[0m"
+    # echo -e "Usage:\n\033[1m$0 [options]\033[0m\n    \033[1m-h, --help\033[0m\n\t\tThis help message\n    \033[1m-d=\033[0m\033[4mDIR\033[0m\033[1m, --install-dir=\033[0m\033[4mDIR\033[0m\n\t\tInstalls the dotfiles to \033[0m\033[4mDIR\033[0m\n    \033[1m-r, --replace\033[0m\n\t\tDoesn't ask before replacing files\033[0m\n    \033[1m--no-omz\033[0m\n\t\tDoesn't install oh-my-zsh\033[0m\n    \033[1m--no-atom\033[0m\n\t\tDoesn't install the atom customitzation\033[0m\n    \033[1m--no-fonts\033[0m\n\t\tDoesn't install the fonts\033[0m\n    \033[1m--no-themes\033[0m\n\t\tDoesn't install the themes\033[0m"
+    echo -e "Usage:\n\033[1m$0 [options]\033[0m\n    \033[1m-h, --help\033[0m\n\t\tThis help message\n    \033[1m-d=\033[0m\033[4mDIR\033[0m\033[1m, --install-dir=\033[0m\033[4mDIR\033[0m\n\t\tInstalls the dotfiles to \033[0m\033[4mDIR\033[0m\n    \033[1m--no-omz\033[0m\n\t\tDoesn't install oh-my-zsh\033[0m\n    \033[1m--atom\033[0m\n\t\tInstall the atom customitzation\033[0m\n    \033[1m--fonts\033[0m\n\t\tInstall the fonts\033[0m\n    \033[1m--themes\033[0m\n\t\tInstall the themes\033[0m"
 }
 
 for ARG in "$@"
@@ -160,7 +161,7 @@ do
         --atom)
             ATOM=1
             ;;
-        --no-fonts)
+        --fonts)
             FONTS=1
             ;;
         # -r|--replace)
