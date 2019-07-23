@@ -27,8 +27,8 @@ sfile() {
 # Prints the path of the gloval shellfile
 # Required code duplication to avoid recursive calls
 __shellfile() {
-    if [ -n "$DOTFILES_DIR" -a -f "$DOTFILES_DIR/shells/shell/$1" ]; then
-        echo $DOTFILES_DIR/shells/shell/$1
+    if [ -n "$DOTFILES_DIR" -a -f "$DOTFILES_DIR/shell-common/$1" ]; then
+        echo $DOTFILES_DIR/shell-common/$1
     else
         error "File not found: $DOTFILES_DIR/shells/shell/$1"
     fi

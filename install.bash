@@ -195,7 +195,7 @@ fi
 
 echo -e "\nInstalling .dotfiles ..."
 git clone --progress $REPO "$INSTALL_DIR"
-printf "export DOTFILES_DIR=\"%s\"\n. \$DOTFILES_DIR/shells/shell/env" "$INSTALL_DIR" > "$DOTFILESRC_FILE"
+printf "export DOTFILES_DIR=\"%s\"\n. \$DOTFILES_DIR/shell-common/env" "$INSTALL_DIR" > "$DOTFILESRC_FILE"
 . "$DOTFILESRC_FILE"
 
 
