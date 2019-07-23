@@ -15,6 +15,10 @@ fi
 #     export DOTFILES_DIR="$(dirname $DOTFILES_DIR)"
 # fi
 
+if [ ! -d "$DOTFILES_DIR/shells/$SHELL_NAME" ]; then
+    return 0
+fi
+
 ssfile "env"
 
 # Adds the scripts folder
