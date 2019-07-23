@@ -1,5 +1,5 @@
 # INFO: this sources the default functions
-. $DOTFILES_DIR/shells/shell/functions
+. $DOTFILES_DIR/shell-common/functions
 #pushd . > /dev/null
 #cd ../shells/shell
 #. ./functions
