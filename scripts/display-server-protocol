@@ -1,0 +1,5 @@
+#! /bin/sh
+
+
+
+loginctl show-session "$(loginctl show-user "$(id -un)" -p Sessions --value | cut -d ' ' -f 1)" -p Type --value

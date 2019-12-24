@@ -19,8 +19,13 @@ file="$(mktemp)"
 time_cmd=$(which time)
 
 for _ in $(seq "$number"); do
-	$time_cmd -o "$file" -p "$@" > /dev/null
-	t="$(awk '{ gsub(",",".",$2); sum +=$2} END { print sum}' < "$file")"
+	$time_cmd -f '%e' -o "$file" "$@" > /dev/null
+	t="$(cat "$file")"
+
+	# POSIX compatible version
+#	$time_cmd -o "$file" -p "$@" > /dev/null
+#	t="$(awk '{ gsub(",",".",$2); sum +=$2} END { print sum}' < "$file")"
+
 	secs="$(echo "$secs + $t" | bc -l)"
 done
 
