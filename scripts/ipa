@@ -1,3 +1,4 @@
 #!/bin/sh
 
-ip a | awk '{ if (NR==1) {print $2} else {if ($0 ~ /^[0-9]+/)  {print "\n" $2} else {if (/inet\s([0-9\.\/]+)/) print $2 } }}'
+# ip a | awk '{ if (NR==1) {print $2} else {if ($0 ~ /^[0-9]+/)  {print "\n" $2} else {if (/inet\s([0-9\.\/]+)/) print $2 } }}'
+ip a | awk '{ if (NR==1) {print $2} else {if ($0 ~ /^[0-9]+/)  {print "\n" $2} else {if (/inet\ ([0-9\.\/]+)/) print $2 } }}'
