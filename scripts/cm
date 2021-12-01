@@ -1,0 +1,41 @@
+#!/bin/bash
+
+is_package() {
+	if [ -f "$(realpath "$1/package.xml")" ]; then
+		echo 1
+	else
+		echo 0
+	fi
+}
+
+get_workspace() {
+	if [ ! -z "$ROS_WORKSPACE" ]; then
+		printf "%s" "${ROS_WORKSPACE}"
+		return
+	fi
+
+	if [ ! -z "$CMAKE_PREFIX_PATH" ]; then
+		IFS=":" read -a workspaces <<< "$CMAKE_PREFIX_PATH";
+		for ws in "${workspaces[@]}"; do
+			if [ -f "$ws/.catkin" ]; then
+				printf "%s" "${ws}/.."
+				return
+			fi
+		done
+	fi
+
+	printf "."
+}
+
+path="$(get_workspace)"
+pkg_opts=""
+
+if [ $# -gt 1 ]; then
+	return catkin_make "$@"
+else
+	if [ "1" = "$(is_package .)" ]; then
+		pkg_opts="--pkg $(basename "$(realpath ".")")"
+	fi
+
+	catkin_make -C "$path" $pkg_opts
+fi
