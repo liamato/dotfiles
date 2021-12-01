@@ -15,7 +15,13 @@ alias vi="vim"
 alias vmi="vim"
 alias sublime="subl"
 alias tree="tree -a -L 3 -I \".git|.hg|.svn\""
+
 alias gti="git"
+alias g='git'
+alias gl='g lg'
+alias glg='g log'
+alias gs='g s'
+alias gai='g a -i'
 
 # alias -="cd -" # Bad option -=
 alias cd..="cd .."
