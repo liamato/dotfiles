@@ -1,5 +1,12 @@
 #! /bin/sh
 
+for session in $(loginctl show-user "$(id -un)" -p Sessions --value); do
+    if [ "$(loginctl show-session "$session" -p State --value)" = "active" ]; then
+        loginctl show-session "$session" -p Type --value
+        return 0
+    fi
 
+done
 
-loginctl show-session "$(loginctl show-user "$(id -un)" -p Sessions --value | cut -d ' ' -f 1)" -p Type --value
+(>&2 echo "Unable to find an active session")
+return 1
