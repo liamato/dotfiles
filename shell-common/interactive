@@ -1,5 +1,12 @@
 ssfile "interactive"
 
+if [ -z "$MANPAGER" ]; then
+    type bat 2>&1 >/dev/null
+    if [ "$?" = "0" ]; then
+        export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+    fi
+fi
+
 source_home_file .interactive
 source_home_file .interactive.$SHELL_NAME
 
